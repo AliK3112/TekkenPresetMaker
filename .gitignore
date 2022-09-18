@@ -1,0 +1,9 @@
+abc.txt
+__pycache__
+.vscode
+backup
+build
+dist
+*.bin
+*.zip
+*.spec
