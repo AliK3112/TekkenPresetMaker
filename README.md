@@ -15,6 +15,6 @@ A tool that adds a preset entry into the preset costumes binary file `tkdata\lis
 5. Run `TekkenPresetMaker.exe`. Follow on-screen commands to add preset to your given character. Mod creators should provide you the name for the preset (it's important that it matches correctly, otherwise, your game will crash). 
 
 6. Tool will make a new `customize_preset_table_cs_s3.bin` file with the "new" postfix (`customize_preset_table_cs_s3_new.bin`).
-  Paste this in `tkdata/list` folder, where original preset binary file was located.
-  Rename the old one to `customize_preset_table_cs_s3_org.bin` and save it somewhere else (You're making a back-up)
-  Rename the new one to `customize_preset_table_cs_s3.bin` , now the game will load this one.
+  6.1. Paste this in `tkdata/list` folder, where original preset binary file was located.
+  6.2. Rename the old one to `customize_preset_table_cs_s3_org.bin` and save it somewhere else (You're making a back-up).
+  6.3. Rename the new one to `customize_preset_table_cs_s3.bin` , now the game will load this one.
