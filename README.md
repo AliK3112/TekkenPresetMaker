@@ -1,6 +1,12 @@
 # Tekken 7 Preset Maker
 A tool that adds a preset entry into the preset costumes binary file `tkdata\list\customize_preset_table_cs_s3.bin`
 
+## How to run/build
+- Clone or download this folder.
+- Run build.bat
+- Go to `./dist/TekkenPresetMaker/`
+- Run the `TekkenPresetMaker.exe`
+
 ## Pre-requisites:
 #### **NOTE: First 3 Pre-requisites are one time only**
 
