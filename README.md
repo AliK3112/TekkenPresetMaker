@@ -1,14 +1,15 @@
 # Tekken 7 Preset Maker
 A tool that adds a preset entry into the preset costumes binary file `tkdata\list\customize_preset_table_cs_s3.bin`
 
-## How to run/build
+## How to run/build project
 - Clone or download this folder.
 - Run build.bat
 - Go to `./dist/TekkenPresetMaker/`
 - Run the `TekkenPresetMaker.exe`
 
-## Pre-requisites:
-#### **NOTE: First 3 Pre-requisites are one time only**
+## How to run release build
+#### Pre-requisites:
+###### **NOTE: First 3 Pre-requisites are one time only**
 
 1. Use [Tekken 7 All Extracting Tool](https://github.com/a5tronomy/Tekken-7-Extracting-Packing-Tools) to extract all data from `tkdata.bin`. We need the decoded raw file contents so we can load & modify them.
 
