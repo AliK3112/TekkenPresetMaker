@@ -1,4 +1,4 @@
-# presetMaker
+# Tekken 7 Preset Maker
 A tool that adds a preset entry into the preset costumes binary file `tkdata\list\customize_preset_table_cs_s3.bin`
 
 ## Pre-requisites:
