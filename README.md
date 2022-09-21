@@ -39,11 +39,11 @@ A tool that adds a preset entry into the preset costumes binary file `tkdata\lis
    - Rename the new one to `customize_preset_table_cs_s3.bin` , now the game will load this one.\
    
 #### OPTION 2: USE SCRIPTS
-1. Put data in `presets.ini`.
-2. Run `addPresets.exe` or `removePresets.exe` depending on your need
-3. Follow Step 3 from OPTION 1
+1. Put data in `presets.ini` as described below.
+2. Run `addPresets.exe` or `removePresets.exe` depending on your need.
+3. Follow Step 3 from OPTION 1.
 
-#### PUTTING DATA IN 'presets.ini':
+## PUTTING DATA IN 'presets.ini':
 1. path: Your tekken 7 path. If not present, current working directory will be selected as path
 2. preset_name: Self explanatory.
     Preset Name can be with or without prefix.
