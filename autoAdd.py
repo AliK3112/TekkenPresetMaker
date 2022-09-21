@@ -16,7 +16,7 @@ class AutoAdd:
         fileData = {}
         with open('presets.ini', 'r') as fd:
             lines = fd.readlines()
-            lines = [line.strip() for line in lines]
+            lines = [line.replace(' ', '') for line in lines]
 
         for line in lines:
             parseLine(line, fileData)
@@ -29,36 +29,42 @@ class AutoAdd:
             self.__path = "./"
 
         try:
-            self.preset_name = fileData['preset_name']
-            self.character_ids = fileData['character_ids']
+            self.__preset_name = fileData['preset_name']
+            if self.__preset_name.startswith('\"') and self.__preset_name.endswith('\"'):
+                self.__preset_name = self.__preset_name[1:-1]
         except:
-            pass
+            self.__preset_name = None
+
+        try:
+            self.__character_ids = fileData['character_ids']
+        except:
+            self.__character_ids = [-1]
 
     def addPresets(self):
-        for id in self.character_ids:
+        for id in self.__character_ids:
             success, msg = self.__presetlist.addPreset(
-                id, self.preset_name, False)
+                id, self.__preset_name, False)
             if success:
                 print("Successfully added preset \"%s\" for character \"%s\"" %
-                      (self.preset_name, Char(id)))
+                      (self.__preset_name, Char(id)))
             else:
-                print("Couldn't add preset \"%s\" for character \"%s\". Reason: %s" % (
-                    self.preset_name, Char(id), msg))
+                print("Couldn't add preset \"%s\" for character \"%s\".\nReason: %s" % (
+                    self.__preset_name, Char(id), msg))
         if self.__presetlist.saveFile(self.__path):
-            print("File successfully saved")
+            print("File successfully saved in folder \"%s\"" % self.__path)
 
     def removePresets(self):
-        for id in self.character_ids:
+        for id in self.__character_ids:
             success, msg = self.__presetlist.removePreset(
-                id, self.preset_name, False)
+                id, self.__preset_name, False)
             if success:
                 print("Successfully removed preset \"%s\" from character \"%s\"" % (
-                    self.preset_name, Char(id)))
+                    self.__preset_name, Char(id)))
             else:
-                print("Couldn't add remove \"%s\" from character \"%s\". Reason: %s" % (
-                    self.preset_name, Char(id), msg))
+                print("Couldn't add remove \"%s\" from character \"%s\".\nReason: %s" % (
+                    self.__preset_name, Char(id), msg))
         if self.__presetlist.saveFile(self.__path):
-            print("File successfully saved")
+            print("File successfully saved in folder \"%s\"" % self.__path)
 
 
 def main():

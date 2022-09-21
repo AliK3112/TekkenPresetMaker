@@ -47,7 +47,10 @@ class PresetList:
                 return self.preset_dict[char]
         return None
 
-    def addPreset(self, char_id, preset_name, save=True) -> bool:
+    def addPreset(self, char_id=-1, preset_name='', save=True) -> bool:
+        if char_id == -1:
+            return False, "No Character ID provided"
+
         if preset_name == '' or preset_name == None:
             return False, "No Preset Name Passed"
 
@@ -71,7 +74,10 @@ class PresetList:
         else:
             return True, "OK"
 
-    def removePreset(self, char_id, preset_name, save=True):
+    def removePreset(self, char_id=-1, preset_name='', save=True):
+        if char_id == -1:
+            return False, "No Character ID provided"
+
         if preset_name == '' or preset_name == None:
             return False, "No Preset Name Passed"
 
@@ -116,11 +122,10 @@ class PresetList:
             print()
         return
 
-    def saveFile(self, path=None):
+    def saveFile(self, path='./'):
         # path = r'F:\Steam\steamapps\common\TEKKEN 7\TekkenGame\Content\Binary\list'
         file = self.__filename
-        if path == None:
-            path = './'
+        if path == './':
             file = '%s_new.bin' % self.__filename.split('.')[0]
         return self.__writeFile(path, file)
 

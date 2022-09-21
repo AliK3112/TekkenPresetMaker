@@ -122,7 +122,7 @@ three_letter_initials = {
     56: "nsd",
 }
 
-forbiddenChars = [27, 38, 39, 40, 41, 42]
+forbiddenChars = [27, 38, 39, 40, 41, 42, 75]
 
 
 def pushEmptyToEnd(arr):
@@ -147,16 +147,15 @@ def toBytes(x: int, size=8):
 
 
 def parseLine(line: str, fileData: dict):
-    try:
-        values = line.split('=')
-        fileData[values[0]] = values[1]
-        if values[0] == 'character_ids':
-            character_ids = values[1].split(',')
-            fileData[values[0]] = []
-            for id in character_ids:
-                fileData[values[0]].append(int(id))
-    except:
-        raise
+    if line[0] == '#':
+        return
+    values = line.split('=')
+    fileData[values[0]] = values[1]
+    if values[0] == 'character_ids':
+        character_ids = values[1].split(',')
+        fileData[values[0]] = []
+        for id in character_ids:
+            fileData[values[0]].append(int(id))
     return
 
 

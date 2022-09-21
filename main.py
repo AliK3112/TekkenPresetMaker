@@ -4,8 +4,6 @@ import msvcrt
 from os import system, name
 from utils import Char, charIDs
 
-# define our clear function
-
 
 def clear():
     if name == 'nt':
