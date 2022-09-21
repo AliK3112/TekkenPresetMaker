@@ -1,3 +1,6 @@
+import os
+
+
 charIDs = {
     0: "Paul",
     1: "Law",
@@ -119,6 +122,8 @@ three_letter_initials = {
     56: "nsd",
 }
 
+forbiddenChars = [27, 38, 39, 40, 41, 42]
+
 
 def pushEmptyToEnd(arr):
     n = len(arr)
@@ -139,3 +144,40 @@ def Char(id: int) -> str:
 
 def toBytes(x: int, size=8):
     return x.to_bytes(size, 'little')
+
+
+def parseLine(line: str, fileData: dict):
+    try:
+        values = line.split('=')
+        fileData[values[0]] = values[1]
+        if values[0] == 'character_ids':
+            character_ids = values[1].split(',')
+            fileData[values[0]] = []
+            for id in character_ids:
+                fileData[values[0]].append(int(id))
+    except:
+        raise
+    return
+
+
+def isTekken7Path(fullpath):
+    for file in os.listdir(fullpath):
+        if file == "TEKKEN 7.exe":
+            return True
+    return False
+
+
+if __name__ == '__main__':
+    fileData = {}
+    filename = 'presets1.ini'
+    try:
+        with open(filename, 'r') as fd:
+            lines = fd.readlines()
+            lines = [line.rstrip() for line in lines]
+    except:
+        print('"%s" file not found. Make sure it is present in same directory' % filename)
+        exit(1)
+
+    for line in lines:
+        parseLine(line, fileData)
+    print(fileData['character_ids'])

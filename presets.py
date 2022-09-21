@@ -7,13 +7,16 @@ from orig import original_preset_list
 
 
 class PresetList:
-    def __init__(self, filename: str):
-        self.__filename = filename
-        self.reader = BinaryReader(self.__filename, True)
+    def __init__(self, path: str):
+        self.__filename = os.path.basename(path)
+        self.reader = BinaryReader(path, True)
         if not self.reader.isOpen():
-            raise BaseException("Failed to Open File %s" % self.__filename)
+            raise FileNotFoundError("Failed to Open File %s" % self.__filename)
         self.preset_dict = {}
         self.__readPresets()
+
+    def __del__(self):
+        self.reader.__del__()
 
     def __readPresets(self):
         if not self.reader.isOpen():
@@ -37,23 +40,25 @@ class PresetList:
         return
 
     def __getCharPresetInfo(self, char_id):
+        if char_id in forbiddenChars:
+            return None
         for char in self.preset_dict:
             if self.preset_dict[char]['char_id'] == char_id:
                 return self.preset_dict[char]
         return None
 
-    def addPreset(self, char_id, preset_name) -> bool:
+    def addPreset(self, char_id, preset_name, save=True) -> bool:
         if preset_name == '' or preset_name == None:
-            return False
+            return False, "No Preset Name Passed"
 
         char_info = self.__getCharPresetInfo(char_id)
 
         if char_info == None:
-            return False
+            return False, "Invalid Character ID passed"
 
         count = char_info['count']
         if count + 1 > 50:
-            return False
+            return False, "Preset limit reached (50)"
 
         if preset_name[0:3] != three_letter_initials[char_id]:
             preset_name = three_letter_initials[char_id] + '_' + preset_name
@@ -61,9 +66,12 @@ class PresetList:
         char_info['presets'][count] = preset_name
         char_info['count'] += 1
 
-        return self.__writeFile(), "OK"
+        if save:
+            return self.saveFile(), "OK"
+        else:
+            return True, "OK"
 
-    def removePreset(self, char_id, preset_name):
+    def removePreset(self, char_id, preset_name, save=True):
         if preset_name == '' or preset_name == None:
             return False, "No Preset Name Passed"
 
@@ -90,7 +98,10 @@ class PresetList:
         char_info['presets'][idx] = ""
         char_info['count'] -= 1
         pushEmptyToEnd(char_info['presets'])
-        return self.__writeFile(), "OK"
+        if save:
+            return self.saveFile(), "OK"
+        else:
+            return True, "OK"
 
     def printPresets(self, char_id=None):
         dict = self.preset_dict
@@ -105,18 +116,21 @@ class PresetList:
             print()
         return
 
-    def __writeFile(self):
-        # File Name without extension
-        file = os.path.splitext(self.__filename)[0]
+    def saveFile(self, path=None):
         # path = r'F:\Steam\steamapps\common\TEKKEN 7\TekkenGame\Content\Binary\list'
-        path = r'./'
-        with open("%s/%s_new.bin" % (path, file), 'wb') as f:
+        file = self.__filename
+        if path == None:
+            path = './'
+            file = '%s_new.bin' % self.__filename.split('.')[0]
+        return self.__writeFile(path, file)
+
+    def __writeFile(self, path, file):
+        with open("%s/%s" % (path, file), 'wb') as f:
             f.write(toBytes(self.paths_addr))
             f.write(toBytes(self.num_chars))
             # Fill bytes all the way, occupying character slots
             for _ in range(2601):
                 f.write(toBytes(0))
-            # Fill all the strings & paths
             # Parent String
             f.write(b'customize_preset_table_cs_s3\0\0')
             zero_addr = f.tell() - 1
@@ -142,7 +156,7 @@ class PresetList:
 
     def restoreOriginal(self):
         self.preset_dict = original_preset_list
-        return self.__writeFile()
+        return self.saveFile()
 
 
 def main(char_id: int, preset_name: str, flag: str):
