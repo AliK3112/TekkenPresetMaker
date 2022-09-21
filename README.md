@@ -1,4 +1,4 @@
-# Tekken 7 Preset Maker
+# TEKKEN 7 Preset Maker
 A tool that adds a preset entry into the preset costumes binary file `tkdata\list\customize_preset_table_cs_s3.bin`
 
 ## How to build project
@@ -43,7 +43,7 @@ A tool that adds a preset entry into the preset costumes binary file `tkdata\lis
 2. Run `addPresets.exe` or `removePresets.exe` depending on your need.
 3. Follow Step 3 from OPTION 1.
 
-## PUTTING DATA IN 'presets.ini':
+## Putting data in 'presets.ini':
 1. path: Your tekken 7 path. If not present, current working directory will be selected as path
 2. preset_name: Self explanatory.
     Preset Name can be with or without prefix.
