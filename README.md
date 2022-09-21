@@ -53,4 +53,6 @@ A tool that adds a preset entry into the preset costumes binary file `tkdata\lis
     E.g, character_ids=6,8,9,13
     Character IDs are present in the text file for reference
 
- 
+`presets.ini` should look like this:
+![presets.ini](https://user-images.githubusercontent.com/83224003/191601245-175dc8f8-b9cf-411c-8ddf-6fd6e1b0081a.png)
+
