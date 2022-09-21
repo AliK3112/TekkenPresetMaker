@@ -1,0 +1,32 @@
+=============================================================
+PRE-REQUISITES:
+1. Extract out tkdata.bin and paste it's contents in "../TEKKEN 7/TekkenGame/Content/Binary"
+2. Rename "tkdata.bin" to "tkdata.bin-x"
+3. Open "presets.ini" and put data in it
+=============================================================
+PUTTING DATA IN 'presets.ini':
+1. path: Your tekken 7 path. If not present, current working directory will be selected as path
+2. preset_name: Self explanatory.
+    Preset Name can be with or without prefix.
+    If adding presets for more than 1 Character, prefix is NOT recommended.
+    E.g, "kaz_tatoo_shirt" and "tatoo_shirt" are both correct
+3. character_ids: Character IDs, comma seperated
+    E.g, character_ids=6,8,9,13
+    Character IDs are present in the text file for reference
+=============================================================
+Q: HOW TO RUN?
+A: You've got 3 options
+-----------------------------------
+    1. addPresets.exe -> one click script that reads from ini file and add presets
+-----------------------------------
+    2. removePresets.exe -> one click script that reads from ini file and remove presets
+-----------------------------------    
+    3. TekkenPresetMaker.exe -> CLI to manually add/remove things. Note: This takes only present working directory
+        I.e, it requires the binary file to be present here, and will create a new one with "new" post fix.
+=============================================================
+AFTERMATH:
+A New binary file will be created based on following condition:
+if path wasn't provided in 'presets.ini' file: 
+    file "customize_preset_table_cs_s3_new.bin" in the current directory
+otherwise:
+    "customize_preset_table_cs_s3.bin" will be replaced in provided directory/path
